@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Feed Globe</title>
+  <meta charset="utf-8">
+  <style type="text/css">
+    html {
+      height: 100%;
+    }
+
+body {
+      margin: 0;
+      padding: 0;
+      
+      color: #ffffff;
+      background-image:url('bg.jpg');
+      background-repeat:repeat;
+      font-family: courier;
+      font-size: small;
+      line-height: 20px;
+      height: 100%;
+    }
+ 
+    #info {
+ 
+      font-size: 11px;
+      position: absolute;
+      bottom: 5px;
+      background-color: rgba(0, 0, 0, 0.8);
+      border-radius: 3px;
+      right: 10px;
+      padding: 10px;
+ 
+    }
+ 
+    a {
+      color: #aaa;
+      text-decoration: none;
+    }
+ 
+    a:hover {
+      text-decoration: underline;
+    }
+ 
+    .bull {
+      padding: 0px 5px;
+      color: #555;
+    }
+ 
+
+    .year {
+      font-family: "century gothic",verdana,arial,helvetica,sans-serif;
+      font: 16px;
+      line-height: 26px;
+      height: 30px;
+      text-align: center;
+      float: left;
+      width: 225px;
+      color: rgba(255, 255, 255, 0.4);
+ 
+      cursor: pointer;
+      -webkit-transition: all 0.1s ease-out;
+    }
+ 
+    .year:hover, .year.active {
+      font-size: 23px;
+      color: #fff;
+    }
+ 
+ #info {
+
+      font-size: 11px;
+      position: absolute;
+      bottom: 5px;
+      background-color: rgba(0, 0, 0, 0.8);
+      border-radius: 3px;
+      right: 10px;
+      padding: 10px;
+
+    }
+ #currentInfo {
+        width: 200px;
+        position: absolute;
+        left: 20px;
+        top: 63px;
+        border-top: 1px solid rgba(255,255,255,0.4);
+
+        background-color: rgba(0,0,0,0.2);
+
+        
+        padding: 10px;
+      }
+
+      a {
+        color: #aaa;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .bull {
+        padding: 0 5px;
+        color: #555;
+      }
+ #notes {
+      	position: absolute;
+      	top: 200px;
+      	left: 20px;
+      	width: 250px;
+        background-color: rgba(0,0,0,0.2);
+        color: gray;
+        border-radius: 3px;
+        font: 12px;
+	font-family: georgia;
+        padding: 10px;
+      }
+#title {
+        position: absolute;
+        top: 20px;
+        width: 300px;
+        left: 20px;
+        background-color: rgba(0,0,0,0.2);
+        border-radius: 2px;
+        font-size: xx-large;
+	font-family: "century gothic",verdana,arial,helvetica,sans-serif;
+              }
+#logo {
+        position: absolute;
+        top: 20px;
+        width: 200px;
+        left: 60em;
+        background-color: rgba(0,0,0,0.2);
+        border-radius: 2px;
+        font: 20px Georgia;
+              }
+
+
+  </style>
+</head>
+
+<!-- Timed Refresh function -->
+<script type="text/JavaScript">
+<!--
+function timedRefresh(timeoutPeriod) {
+        setTimeout("location.reload(true);",timeoutPeriod);
+}
+//   -->
+</script>
+<body onload="JavaScript:timedRefresh(3600000);">
+
+
+<div id="logo">
+ <img src="logo.png"></img>
+</div>
+<div id="title">
+  Trampa Project </div>
+
+<div id="notes">
+	<p>If you are curious on how to query the server using the API you can visit my <a href='http://www.josehelps.com/p/feeds.html'>blog post</a>. Or the help file on the project <a href='http://code.google.com/p/collective-intelligence-framework/wiki/WebAPI'>site</a></p>
+
+	<p><b>Current Feeds</b></p>
+	<p>
+<ul>
+<li>spamhaus.org</li>
+<li>zeustracker.abuse.ch</li>
+<li>alienvault.com</li>
+<li>malwaredomains.com</li>
+<li>dragonresearchgroup.org - cymru</li>
+<li>sshbl.org</li>
+<li>danger.rulez.sk</li>
+<li>malware.com.br</li>
+<li>malwareblacklist.com</li>
+<li>threatexpert.com</li>
+<li>malwaredomainlist.com</li>
+<li>malc0de.com</li>
+<li><a href='http://pastebin.com/raw.php?i=yKSQd5Z5'>paste bin rsa dump</a></li>
+<li>phishtank.com</li>
+<li>shadowserver.org</li>
+<li>spyeyetracker.abuse.ch</li>
+<li>infiltrated.net</li>
+</ul>
+	
+<p><em>Credit to Wes, and the CIF Team for making a wonderful product.</em></p>
+  </div>
+
+<div id="container"></div>
+<div id="currentInfo">
+    <span id="1" class="year" style="color:#730b00">Last 24 Hours </span>
+    <span id="2" class="year" style="color:#bf4032">Last 7 Days</span>
+   <span id="3" class="year" style="color:#ffafa6">Last 30 Days</span>
+</div>
+<div id="info">
+  Data collected from cif <span class="bull">&bull;</span> hosted at feed.prolexi.com</a>
+</div>
+
+<script type="text/javascript" src="/third-party/Three/ThreeWebGL.js"></script>
+<script type="text/javascript" src="/third-party/Three/ThreeExtras.js"></script>
+<script type="text/javascript" src="/third-party/Three/RequestAnimationFrame.js"></script>
+<script type="text/javascript" src="/third-party/Three/Detector.js"></script>
+<script type="text/javascript" src="/globe3.js"></script>
+<script type="text/javascript">
+
+if(!Detector.webgl){
+      Detector.addGetWebGLMessage();
+    } else {
+
+  	var globe = DAT.Globe(document.getElementById('container'), function(label) {
+	return new THREE.Color([
+	0xd9d9d9, 0xb6b4b5, 0x9966cc, 0x15adff, 0xffafa6,
+	0x216288, 0xff7e7e, 0x730b00, 0xc0120b, 0x5a1301, 0xffcc02,
+	0xedb113, 0x9fce66, 0x0c9a39,
+	0xfe9872, 0x7f3f98, 0xbf40328, 0x2bb673, 0xd7df23,
+	0xe6b23a, 0x7ed3f7][label]);
+	});
+
+	xhr = new XMLHttpRequest();
+	xhr.open('GET', '/attack_data.json', true);
+	xhr.onreadystatechange = function(e) {
+	if (xhr.readyState === 4) {
+		if (xhr.status === 200) {
+        	var data = JSON.parse(xhr.responseText);
+        	window.data = data;
+        	globe.addData(data, {format: 'legend'});
+        
+	globe.createPoints();
+        globe.animate();
+      		}
+    	}
+  	};
+        xhr.send(null);
+}
+
+
+//CountDown Timer until next update
+function numMinutes() {
+     return 60 - new Date().getMinutes() % 60;
+}
+setInterval(function() {
+     var el = document.getElementById("countdown");
+     while(el.childNodes.length > 0) el.removeChild(el.firstChild);
+     el.appendChild(document.createTextNode(numMinutes().toString() + ' minutes left!'));
+}, 1000);
+
+</script>
+
+
+</body>
+
+</html>
