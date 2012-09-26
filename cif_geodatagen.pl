@@ -11,11 +11,13 @@ open DAILY, "/home/cif/crontool_daily.log" or die " issue opening $!\n";
 
 
 my $json;
+my @data;
 my $convert_magnitude;
 my $ip;
 my $record;
 my $lat;
 my $lon;
+
 
 #Generates first data series for the JSON (1 hour)
 $json .= "[";
@@ -32,11 +34,12 @@ while (my $hourly_line = <HOURLY>) {
 		$lat = $record->latitude;
 		$lon = $record->longitude;
 			#LONGITUDE    LATITUDE     HEIGHT OF SPIKE IN GLOBE  COLOR CODE
-		$json .= $lat . "," . $lon . "," . $convert_magnitude . "," . "7" . ",\n";
+		push (@data, "$lat,$lon,$convert_magnitude,7,\n");
   	}
    }
 
 }
+
 
 $convert_magnitude=.02;
 while (my $hourly_line = <DAILY>) {
@@ -50,13 +53,24 @@ while (my $hourly_line = <DAILY>) {
         if ( defined $record ) {
                 $lat = $record->latitude;
                 $lon = $record->longitude;
-                $json .= $lat . "," . $lon . "," . $convert_magnitude . "," . "16" . ",\n";
+                push (@data, "$lat,$lon,$convert_magnitude,16,\n");
         }
    }
 
 }
 
 #closing caret for the json
+my @unique;
+my %seen;
+foreach (@data) {
+    push(@unique, $_) unless ($seen{$_}++);
+}
+
+foreach (@unique)
+	{
+		$json .= $_;
+	}
+
 $json .= "]";
 close HOURLY;
 close DAILY;
